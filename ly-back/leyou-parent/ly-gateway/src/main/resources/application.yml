@@ -1,0 +1,124 @@
+server:
+  port: 10010
+spring:
+  application:
+    name: api-gateway
+  #nacos注册服务配置
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    #网关配置
+    gateway:
+      default-filters:
+        #熔断配置
+        - name: Hystrix
+          args:
+            #定义统一降级方法
+            name: fallbackcmd
+            fallbackUri: forward:/fallback
+      #路由配置
+      routes:
+        #配置商品微服务的路由
+        - id: item-service   # 路由id,可以随意写
+          # 代理的服务地址；lb表示负载均衡(从nacos中获取具体服务)
+          uri: lb://item-service
+          # 路由断言，可以配置映射路径
+          predicates:
+            - Path=/api/item/**
+          filters:
+            # 表示过滤1个路径，2表示两个路径，以此类推
+            - StripPrefix=2
+        #配置文件上传微服务的路由
+        - id: upload-service
+          uri: lb://upload-service
+          predicates:
+            - Path=/api/upload/**
+          filters:
+            - StripPrefix=2
+        #配置搜素微服务的路由
+        - id: search-service
+          uri: lb://search-service
+          predicates:
+            - Path=/api/search/**
+          filters:
+            - StripPrefix=2
+        #配置静态页面微服务的路由
+        - id: page-service
+          uri: lb://page-service
+          predicates:
+            - Path=/page/**
+          filters:
+            - StripPrefix=0
+        #配置用户微服务的路由
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/user/**
+          filters:
+            - StripPrefix=2
+        #配置用户授权微服务的路由
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - StripPrefix=2
+        #配置购物车微服务的路由
+        - id: cart-service
+          uri: lb://cart-service
+          predicates:
+            - Path=/api/cart/**
+          filters:
+            - StripPrefix=2
+        #配置订单微服务的路由
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/api/order/**
+          filters:
+            - StripPrefix=1
+      globalcors:
+        corsConfigurations: #跨域配置
+          '[/**]':
+            allowedOrigins: #允许跨域的源(网站域名/ip)，设置*为全部(Access-Control-Allow-Origin)
+              - "http://manage.leyou.com"
+              - "http://www.leyou.com"
+            allowedHeaders: #允许跨域请求里的head字段(Access-Control-Allow-Headers)，设置*为全部
+              - "*"
+            allowCredentials: true #允许携带认证信息(Access-Control-Allow-Credentials)，即cookie
+            maxAge: 360000 #跨域允许的有效期
+            allowedMethods: #跨域允许的请求方式(Access-Control-Allow-Methods)
+              - GET
+              - POST
+              - DELETE
+              - PUT
+              - OPTIONS
+              - HEAD
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            #设置API网关中路由转发请求的HystrixCommand执行超时时间
+            timeoutInMilliseconds: 5000
+
+ly:
+  #jwt相关配置
+  jwt:
+    pubKeyPath: E:\实习&培训&工作\黑马程序员培训\就业班内容\项目二阶段\个人代码\rsa-key.pub # 公钥地址
+    cookie:
+      cookieName: LY_TOKEN # cookie名称
+    application:
+      serviceName: api-gateway
+      secret: api-gateway
+  filter: #配置请求拦截白名单
+    allowPaths:
+      - /api/auth/login
+      - /api/search
+      - /api/user/register
+      - /api/user/check
+      - /api/user/code
+      - /api/item
+      - /page/item

@@ -1,0 +1,26 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: cart-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
+ly:
+  #jwt相关配置
+  jwt:
+    pubKeyPath: E:\实习&培训&工作\黑马程序员培训\就业班内容\项目二阶段\个人代码\rsa-key.pub # 公钥地址
+    cookie:
+      cookieName: LY_TOKEN # cookie名称
+    application:
+      serviceName: cart-service
+      secret: cart-service
+
+logging:
+  level:
+    com.leyou: debug

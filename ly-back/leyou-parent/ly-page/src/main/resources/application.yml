@@ -1,0 +1,33 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  application:
+    name: page-service
+  thymeleaf:
+    cache: false #将静态模板缓存取消，方便热部署
+    prefix: classpath:/templates/ #配置加载静态模板的默认类路径，默认值为classpath:/templates/
+  #rabbitMq配置(消费者)
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    virtual-host: /leyouMall
+    username: wpf
+    password: 123456
+
+server:
+  port: 8084
+#配置存放Nginx服务器中存放静态页面文件的地址
+ly:
+  staticPage:
+    itemDir: G:\Web_Server\nginx-1.15.3\html\page\item #静态页服务器地址
+    itemTemplate: item #模板名称
+  #jwt相关配置
+  jwt:
+    pubKeyPath: E:\实习&培训&工作\黑马程序员培训\就业班内容\项目二阶段\个人代码\rsa-key.pub # 公钥地址
+    cookie:
+      cookieName: LY_TOKEN # cookie名称
+    application:
+      serviceName: page-service
+      secret: page-service

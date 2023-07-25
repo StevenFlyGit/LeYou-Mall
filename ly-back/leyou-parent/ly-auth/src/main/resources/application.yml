@@ -1,0 +1,42 @@
+server:
+  port: 8087
+spring:
+  application:
+    name: auth-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  redis:
+    host: 127.0.0.1
+    port: 6379
+  #数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///leyou?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=true
+    username: root
+    password: 123456
+
+mybatis-plus:
+  type-aliases-package: com.leyou.pojo.auth
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mappers/*mapper.xml #mybatis配置文件路径
+
+logging:
+  level:
+    com.leyou: debug
+
+ly:
+  #jwt相关配置
+  jwt:
+    pubKeyPath: E:\实习&培训&工作\黑马程序员培训\就业班内容\项目二阶段\个人代码\rsa-key.pub # 公钥地址
+    priKeyPath: E:\实习&培训&工作\黑马程序员培训\就业班内容\项目二阶段\个人代码\rsa-key # 私钥地址
+    cookie:
+      expire: 30 #过期时间设置 单位分钟
+      refresh: 15 #用户信息的Token的刷新时间(是指到过期时间之前的多少分钟) 单位分钟
+      cookieName: LY_TOKEN # cookie名称
+      cookieDomain: leyou.com # cookie的域
+    application:
+      expire: 1440 #服务token的过期时间(1天)
+

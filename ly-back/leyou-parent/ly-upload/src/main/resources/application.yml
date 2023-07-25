@@ -1,0 +1,24 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: upload-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  #更改图片解析器的默认配置
+  servlet:
+    multipart:
+      max-file-size: 5MB #默认值是1MB
+
+#配置阿里云上传文件的参数
+ly:
+  oss:
+    accessKeyId: LTAI4G2aj5GZZE6Tt9Fet2a7
+    accessKeySecret: emXYWYv04IPySUfdOtgWl4BiaNHLwN
+    host: http://wpf-lymall.oss-cn-shenzhen.aliyuncs.com # 访问oss的域名，很重要bucket + endpoint
+    endpoint: oss-cn-shenzhen.aliyuncs.com # 你的服务的端点，不一定跟我一样
+    dir: "" # 保存到bucket的某个子目录
+    expireTime: 20 # 过期时间，单位是S
+    maxFileSize: 5242880 #文件大小限制，这里是5M

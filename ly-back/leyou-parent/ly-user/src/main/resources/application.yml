@@ -1,0 +1,30 @@
+server:
+  port: 8086
+spring:
+  application:
+    name: user-service
+  datasource:
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/leyou?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=true
+  #配置redis
+  redis:
+    host: localhost #(默认配置)
+  #RabbitMq配置(消息提供者)
+  rabbitmq:
+    virtual-host: /leyouMall
+    username: wpf
+    password: 123456
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+mybatis-plus:
+  mapper-locations: classpath :mappers/*mapper.xml
+  type-aliases-package: com.leyou.user.pojo #配置实体类别名
+  configuration:
+    map-underscore-to-camel-case: true #驼峰命名法规则
+logging:
+  level:
+    com.leyou: debug #配置日志级别

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 映射文件的命名空间必须是所对应接口的路径 -->
+<mapper namespace="com.leyou.auth.mapper.ApplicationInfoMapper">
+
+
+    <select id="selectTargetAppNameListByServiceName" resultType="java.lang.String">
+        select tb_application.service_name from tb_application where tb_application.id
+        in (
+        select tap.target_id from tb_application ta inner join
+        tb_application_privilege tap on ta.id = tap.service_id
+        where ta.service_name = "api-gateway"
+        );
+    </select>
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 映射文件的命名空间必须是所对应接口的路径 -->
+<mapper namespace="com.leyou.item.mapper.BrandMapper">
+
+    <insert id="insertCategoryIdsForBrand">
+        insert into tb_category_brand(category_id, brand_id) values
+        <foreach collection="cids" item="cid" separator=",">
+            (#{cid}, #{bId})
+        </foreach>
+    </insert>
+
+</mapper>

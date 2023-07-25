@@ -1,0 +1,53 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: item-service
+  #数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///leyou?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=true
+    username: root
+    password: 123456
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  #RabbitMq相关配置(消息发送者)
+  rabbitmq:
+    host: 127.0.0.1
+    username: wpf
+    password: 123456
+    virtual-host: /leyouMall
+    #生产者确认机制，确保消息会正确发送，如果发送失败会有错误回执，从而触发重试
+    publisher-confirms: true
+    template:
+      #retry：失败重试
+      #- enabled：开启失败重试
+      #- initial-interval：第一次重试的间隔时长
+      #- max-interval：最长重试间隔，超过这个间隔将不再重试
+      #- multiplier：下次重试间隔的倍数，此处是2即下次重试间隔是上次的2倍
+      retry:
+        enabled: true
+        initial-interval: 10000ms
+        max-interval: 80000ms
+        multiplier: 2
+mybatis-plus:
+  type-aliases-package: com.leyou.pojo.item
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mappers/*mapper.xml
+
+logging:
+  level:
+    com.leyou: debug
+
+ly:
+  #jwt相关配置
+  jwt:
+    pubKeyPath: E:\实习&培训&工作\黑马程序员培训\就业班内容\项目二阶段\个人代码\rsa-key.pub # 公钥地址
+    cookie:
+      cookieName: LY_TOKEN # cookie名称
+    application:
+      serviceName: item-service
+      secret: item-service

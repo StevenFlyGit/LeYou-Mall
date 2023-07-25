@@ -1,0 +1,36 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: search-service
+  #配置elasticsearch
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: 127.0.0.1:9300
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  #rabbitMq配置(消费者)
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    virtual-host: /leyouMall
+    username: wpf
+    password: 123456
+
+#elasticsearch打印操作指令到日志中的配置
+logging:
+  level:
+    org.springframework.data.elasticsearch.core: DEBUG
+
+ly:
+  #jwt相关配置
+  jwt:
+    pubKeyPath: E:\实习&培训&工作\黑马程序员培训\就业班内容\项目二阶段\个人代码\rsa-key.pub # 公钥地址
+    cookie:
+      cookieName: LY_TOKEN # cookie名称
+    application:
+      serviceName: search-service
+      secret: search-service

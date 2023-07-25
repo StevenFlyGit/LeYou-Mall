@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>leyou-parent</artifactId>
+        <groupId>com.wpf</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--该模块是所有的实体类工程公用的父工程-->
+    <artifactId>ly-pojo</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>ly-pojo-item</module>
+        <module>ly-pojo-search</module>
+        <module>ly-pojo-user</module>
+        <module>ly-pojo-auth</module>
+        <module>ly-pojo-cart</module>
+        <module>ly-pojo-order</module>
+    </modules>
+
+    <!--统一导入每个模块的实体都会用到的依赖-->
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <!--注意：千万不能导入mybaatis-plus启动器，启动器会自动配置，万一不需要配置的微服务就会失败-->
+        <!-- <dependency>
+             <groupId>com.baomidou</groupId>
+             <artifactId>mybatis-plus-boot-starter</artifactId>
+             <version>3.1.0</version>
+         </dependency>-->
+
+        <!--只需要核心包-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-core</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+    </dependencies>
+
+</project>

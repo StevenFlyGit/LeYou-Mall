@@ -1,0 +1,28 @@
+#java
+*.class
+
+#package file
+*.war
+#*.ear
+#*.zip
+#*.tar.gz
+#*.rar
+
+#maven ignore
+target/
+build/
+
+#eclipse ignore
+.settings/
+.project
+.classpath
+
+#Intellij idea
+.idea/
+#/idea/
+*.ipr
+*.iml
+*.iws
+
+#vue&npm
+node_modules/
